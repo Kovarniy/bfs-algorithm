@@ -21,4 +21,4 @@ const matrix = [
 ];
 
 let g = new Graph(matrix);
-
+console.log(g);
