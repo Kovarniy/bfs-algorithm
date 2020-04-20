@@ -18,5 +18,5 @@ export default play = () => {
 
   const graph = new Graph(matrix);
   console.log(graph);
-  drawGraph(context, graph.adjList);
+  drawGraph(context, graph);
 };

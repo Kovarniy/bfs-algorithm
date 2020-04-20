@@ -11,13 +11,13 @@ const canvas = () => {
 };
 
 class Vetrex {
-  constructor(list) {
-    const coordList = calculateXY(list.length);
+  constructor(graph) {
+    const coordList = calculateXY(graph.adjList.length);
 
     this.vertex = [
       {
         name: 0,
-        adjList: list[0],
+        adjList: graph.adjList[0],
         coordinates: {
           x: coordList.x[0],
           y: coordList.y[0],
@@ -25,10 +25,10 @@ class Vetrex {
         color: "red",
       },
     ];
-    for (let i = 1; i < list.length; i++) {
+    for (let i = 1; i < graph.adjList.length; i++) {
       this.vertex.push({
         name: i,
-        adjList: list[i],
+        adjList: graph.adjList[i],
         coordinates: {
           x: coordList.x[i],
           y: coordList.y[i],
@@ -36,11 +36,12 @@ class Vetrex {
         color: "red",
       });
     }
+    this.matrix = graph.adjMatrix;
   }
 }
 
-const lestToVertexObj = (list) => {
-  let v = new Vetrex(list);
+const graphToVertexObj = (graph) => {
+  let v = new Vetrex(graph);
   return v;
 };
 
@@ -62,45 +63,61 @@ const calculateXY = (countVertex) => {
     cordArr.y[index] = Math.sin(getRad(i));
     index++;
   }
-  console.log(cordArr);
+  // console.log(cordArr);
   return cordArr;
 };
 
 const drawVertex = (context, v) => {
   for (let i = 0; i < v.vertex.length; i++) {
     context.beginPath();
-    context.fillStyle = "red";
-    context.arc(
-      450 + v.vertex[i].coordinates.x * 100,
-      300 + v.vertex[i].coordinates.y * 100,
-      20,
-      0,
-      360
-    );
+    context.fillStyle = "blue";
+    const x = 400 + v.vertex[i].coordinates.x * 130;
+    const y = 400 + v.vertex[i].coordinates.y * 130;
+    context.arc(x, y, 25, 0, 360);
     context.stroke();
+    context.fill();
+
+    context.beginPath();
+    context.lineWidth = 1;
+    context.font = "32px Arial";
+    context.fillStyle = "blue";
+    context.fillText(`${v.vertex[i].name}`, x, y - 30);
     context.fill();
   }
 };
 
-const drawRib = (context, arrVertex) => {
-  //Если у вершин разные цвета, то рисуем между ними путь
-  for (let i = 0; i < currentSize; i++) {
-    for (let j = 1; j < currentSize; j++) {
-      if (adjMatrix[i][j] == 1) {
-        contex.beginPath();
-        contex.moveTo(450 + arrVertex[i].x * 100, 300 + arrVertex[i].y * 100);
-        contex.lineTo(450 + arrVertex[j].x * 100, 300 + arrVertex[j].y * 100);
-        contex.stroke();
+const drawRib = (context, g) => {
+  let lab = g.vertex.map(() => 0);
+  const len = g.vertex.length;
+  console.log(g);
+
+  for (let i = 0; i < len; i++) {
+    for (let j = i + 1; j < len; j++) {
+      if (g.matrix[i][j] === 1) {
+        console.log(`i: ${i} j: ${j}`);
+        context.beginPath();
+
+        context.moveTo(
+          400 + g.vertex[i].coordinates.x * 130,
+          400 + g.vertex[i].coordinates.y * 130
+        );
+        context.lineTo(
+          400 + g.vertex[j].coordinates.x * 130,
+          400 + g.vertex[j].coordinates.y * 130
+        );
+        context.strokeStyle = "gray";
+        context.lineWidth = 3;
+        context.stroke();
       }
     }
   }
 };
 
-const drawGraph = (context, adjList) => {
-  let obj = lestToVertexObj(adjList);
-  console.log(obj);
+const drawGraph = (context, adjGraph) => {
+  let obj = graphToVertexObj(adjGraph);
+  // console.log(obj);
+  drawRib(context, obj);
   drawVertex(context, obj);
-  // drawRib(context, obj);
 };
 
 export { canvas, drawGraph };
