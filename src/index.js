@@ -1,5 +1,5 @@
-import canvas from "./graphics/canvas.js";
+import play from "./logics/play.js";
 
 window.onload = () => {
-  canvas();
+  play();
 };
