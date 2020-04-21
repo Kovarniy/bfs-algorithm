@@ -7,8 +7,54 @@
       Demonstratoin bfs algorithm
     </title>
     <script type="module" src="src/index.js"></script>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <canvas id="algoCanvas"> </canvas>
+    <div>
+      <center><h1>Demonstratoin bfs algorithm</h1></center>
+      <canvas id="algoCanvas"> </canvas>
+      <div style="float: right;">
+        <div>
+          <h2>Очередь</h2>
+          <div id="DequeBox" class="box">
+            <!-- <div class="dequeElement"><p>0</p></div> -->
+          </div>
+        </div>
+        <div>
+          <h2>Поесещенные вершины</h2>
+          <div id="visitedVertexBox" class="box">
+            <div id="v0" class="block notVisitedVert">
+              <p>0</p>
+            </div>
+            <div id="v1" class="block notVisitedVert">
+              <p>1</p>
+            </div>
+            <div id="v2" class="block notVisitedVert">
+              <p>2</p>
+            </div>
+            <div id="v3" class="block notVisitedVert">
+              <p>3</p>
+            </div>
+            <div id="v4" class="block notVisitedVert">
+              <p>4</p>
+            </div>
+            <div id="v5" class="block notVisitedVert">
+              <p>5</p>
+            </div>
+            <div id="v6" class="block notVisitedVert">
+              <p>6</p>
+            </div>
+          </div>
+        </div>
+        <br />
+        <button id="steep">
+          Сделать шаг
+        </button>
+      </div>
+    </div>
+    <hr />
+    <footer>
+      <p id="fio">© Е. Ф. Щемелинин, 2020</p>
+    </footer>
   </body>
 </html>

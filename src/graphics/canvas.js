@@ -118,6 +118,46 @@ const drawGraph = (context, adjGraph) => {
   // console.log(obj);
   drawRib(context, obj);
   drawVertex(context, obj);
+  return obj;
 };
 
-export { canvas, drawGraph };
+const changeVetexColor = (num, obj, color, context) => {
+  obj.vertex[num].color = color;
+  const x = 400 + obj.vertex[num].coordinates.x * 130;
+  const y = 400 + obj.vertex[num].coordinates.y * 130;
+
+  context.beginPath();
+  context.fillStyle = color;
+  context.arc(x, y, 25, 0, 360);
+  context.stroke();
+  context.fill();
+};
+
+const changeDomElColors = (selector, color) => {
+  console.log(selector);
+  const el = document.querySelector(selector);
+  el.style.backgroundColor = color;
+};
+
+const addElInDeque = (id, text) => {
+  let dequeBox = document.getElementById("DequeBox");
+  let div = document.createElement("div");
+  div.classList.add("block");
+  div.setAttribute("id", id);
+  div.innerHTML = `<p> ${text} </p>`;
+  dequeBox.append(div);
+};
+
+const removeElInDeque = (id) => {
+  let el = document.getElementById(id);
+  el.remove();
+};
+
+export {
+  canvas,
+  drawGraph,
+  changeDomElColors,
+  changeVetexColor,
+  addElInDeque,
+  removeElInDeque,
+};
